@@ -1,24 +1,30 @@
-package com.hbn.android.features.ui;
+package com.hbn.android.ui;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.hbn.android.R;
 import com.hbn.android.features.FeatureContent;
+import com.hbn.android.utils.Consts;
 import com.hbn.androididfeature.IAndroidIDFeature;
 
 import android.content.pm.ApplicationInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
+import android.text.Layout;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 public class AppList extends ListFragment{
 
@@ -44,21 +50,13 @@ public class AppList extends ListFragment{
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
         Log.i(TAG,"OnViewCreated");
-		setListAdapter(new AppInfoAdapter(mDataCallback.getAdapterData()));
+		setListAdapter(new AppListAdapter(mDataCallback.getAdapterData()));
 //        setListAdapter(new ArrayAdapter<ApplicationInfo>(
 //                getActivity(),
 //                android.R.layout.simple_list_item_activated_1,
 //                android.R.id.text1,
 //                mDataCallback.getAdapterData()));
 		registerForContextMenu(getListView());
-		getListView().setOnItemLongClickListener(new OnItemLongClickListener() {
-
-			@Override
-			public boolean onItemLongClick(AdapterView<?> parent, View view,int position, long id) {
-				
-				return false;
-			}
-		});
 		
 	}
     
@@ -76,8 +74,16 @@ public class AppList extends ListFragment{
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v,ContextMenuInfo menuInfo) {
     	super.onCreateContextMenu(menu, v, menuInfo);
+
+    	// Get the list
+        ListView list = (ListView)v;
+        // Get the list item position    
+        AdapterContextMenuInfo info = (AdapterContextMenuInfo)menuInfo;
+        int position = info.position;
+
+        // Now you can do whatever.. (Example, load different menus for different items)
     	for (IAndroidIDFeature feature : FeatureContent.getInstance().ITEMS){
-    		menu.add(feature.getFeatureName());
+    		menu.add(0, position, feature.getFeaturePriority(), feature.getFeatureName());
     	}
     	
     }
@@ -85,10 +91,14 @@ public class AppList extends ListFragment{
     @Override
     public boolean onContextItemSelected(MenuItem item) {
     	Fragment frag = null;
+    	FeatureContent fc = FeatureContent.getInstance();
     	try {
 			frag = (Fragment) Class.forName(
-					FeatureContent.getInstance().ITEM_MAP.get(item.getTitle()).getMainClassName())
+					fc.ITEM_MAP.get(item.getTitle()).getMainClassName())
 					.newInstance();
+			Bundle args = new Bundle();
+			args.putString(Consts.APPLICATION_BPACK, parseBpackFromListPos(item.getItemId()));
+			frag.setArguments(args);
 		} catch (java.lang.InstantiationException e) {
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
@@ -106,6 +116,15 @@ public class AppList extends ListFragment{
     	}
     	
     	return super.onContextItemSelected(item);
+    }
+    
+    private String parseBpackFromListPos(int position){
+    	
+    	String res = null;
+    	
+    	ApplicationInfo appInfo= (ApplicationInfo)getListView().getItemAtPosition(position);
+    	res = appInfo.packageName;
+    	return res;
     }
     
 }

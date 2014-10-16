@@ -1,10 +1,10 @@
-package com.hbn.android.features.ui;
+package com.hbn.android.ui;
 
 import com.hbn.androididfeature.IAndroidIDFeature;
 
 import android.support.v4.app.FragmentActivity;
 
-public class FeatureMain extends FragmentActivity implements IAndroidIDFeature{
+public class FeatureInfo  implements IAndroidIDFeature{
 
 	public final String FEATURE_NAME = "Paths";
 	public final int FEATURE_PRIORITY = 1;

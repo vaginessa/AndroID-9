@@ -11,7 +11,7 @@ import java.util.Map;
 import android.content.Context;
 import android.util.Log;
 
-import com.hbn.android.features.ui.FeatureMain;
+import com.hbn.android.ui.FeatureInfo;
 import com.hbn.androididfeature.FeatureComperator;
 import com.hbn.androididfeature.IAndroidIDFeature;
 

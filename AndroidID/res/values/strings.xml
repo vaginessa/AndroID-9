@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">AndroidID</string>
+    <string name="app_name">AndroID</string>
     <string name="title_item_detail">Item Detail</string>
-
+    
+    <string name="icon">Icon</string>
+	<string name="app_label">Application label: %s</string>
+    <string name="source_dir">Source dir: %s</string>
+	<string name="bpack">BasePackage: %s</string>
+	<string name="installer">Installed from: %s</string>
+	<string name="na">N\\A</string>
+    
 </resources>

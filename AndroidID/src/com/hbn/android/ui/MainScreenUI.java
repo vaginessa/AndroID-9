@@ -1,4 +1,4 @@
-package com.hbn.android.features.ui;
+package com.hbn.android.ui;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +29,7 @@ public class MainScreenUI extends Fragment implements AppList.DataCallback{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.main_fragment, container, false);
-
+ 
         final CheckBox cb_apps = (CheckBox)rootView.findViewById(R.id.cb_apps);
         final CheckBox cb_sys_apps = (CheckBox)rootView.findViewById(R.id.cb_sys_apps);
         Button scan = (Button)rootView.findViewById(R.id.btn_scan);

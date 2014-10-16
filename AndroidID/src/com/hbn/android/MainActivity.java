@@ -1,7 +1,7 @@
 package com.hbn.android;
 
 import com.hbn.android.features.FeatureContent;
-import com.hbn.android.features.ui.MainScreenUI;
+import com.hbn.android.ui.MainScreenUI;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;

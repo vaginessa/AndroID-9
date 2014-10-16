@@ -1,4 +1,4 @@
-package com.hbn.android.features.ui;
+package com.hbn.android.ui;
 
 import java.util.List;
 
@@ -13,11 +13,11 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class AppInfoAdapter extends BaseAdapter{
+public class AppListAdapter extends BaseAdapter{
 
 	private List<ApplicationInfo> mData;
 	
-	public AppInfoAdapter(List<ApplicationInfo> adapterData) {
+	public AppListAdapter(List<ApplicationInfo> adapterData) {
 		mData = adapterData;
 	}
 
@@ -43,7 +43,7 @@ public class AppInfoAdapter extends BaseAdapter{
 		
 		if (convertView == null){
 			convertView = LayoutInflater.from(parent.getContext())
-					.inflate(R.layout.list_item_appinfo, parent, false);
+					.inflate(R.layout.list_item_app, parent, false);
 		}
 		
 		ImageView icon = (ImageView) convertView.findViewById(R.id.iv_icon);
